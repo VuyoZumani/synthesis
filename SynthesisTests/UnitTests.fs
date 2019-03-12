@@ -210,7 +210,7 @@ let ``monthDay`` () =
     (fun () -> monthDay 366 1700) |> shouldFail
     (fun () -> monthDay 367 1600) |> shouldFail
     (fun () -> monthDay 1 1581) |> shouldFail
-    monthDay 1 1582 |> should equal "January"
+    monthDay 29 1582 |> should equal "January"
     monthDay 1 1582 |> should equal "January"
     monthDay 365 1700 |> should equal "December"
     monthDay 366 1600 |> should equal "December"
