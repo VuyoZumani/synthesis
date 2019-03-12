@@ -2,7 +2,8 @@
 
 open System.Security.Cryptography.X509Certificates
 
-let abelar n =  n>12 &&  n<3097 && n%12=0 
+let abelar n =  
+    n>12 &&  n<3097 && n%12=0 
 failwith "Not implemented"
 
 let area bases height = 
@@ -43,12 +44,11 @@ let toTime secs =
 failwith "Not implemented"
 
 let digits n =
-    let start=10
     let rec countDigit v acc=
         match n/v=0 with
         |true->acc
         |false->countDigit (v*10) (acc+1)
-    countDigit start 1
+    countDigit 10 1
 failwith "Not implemented"
 
 let minmax (a,b,c,d) =
@@ -61,9 +61,8 @@ let isLeap n =
     |_,true,true,_->true
     |_,_,_,true->true
     |_,_,_,_->false
-
-let month n =
-    match n with
+failwith "Not implemented"
+let month n = match n with
     |1 -> "January",31
     |2-> "February",28
     |3-> "March",31
@@ -77,7 +76,7 @@ let month n =
     |11-> "November",30
     |12-> "December",31
     |_-> failwith "An exception is thrown!!"
-   
+failwith "Not implemented"
 
 let toBinary n =
     match n>=0,n with
@@ -87,8 +86,7 @@ let toBinary n =
     let rec Div v=
         match v/2<>0 ||v%2=1 with
         |false -> ""
-        |true-> 
-        match v%2 with
+        |true-> match v%2 with
             |0->Div (v/2)+"0"
             |1->Div(v/2)+"1"
     Div n
@@ -97,31 +95,24 @@ let bizFuzz n =
     let rec countDivs (a,b,c) v =
         match n<v with
         |true->(a,b,c)
-        |false->
-            match v%3=0,v%5=0,v%3=0 && v%5=0 with
-            |true,false,false->countDivs (a+1,b,c) (v+1)
-            |false,true,false->countDivs (a,b+1,c) (v+1)
+        |false-> match v%3=0,v%5=0,v%3=0 && v%5=0 with
+            |true,false,_->countDivs (a+1,b,c) (v+1)
+            |false,true,_->countDivs (a,b+1,c) (v+1)
             |false,false,true->countDivs (a,b,c+1) (v+1)
             |true,true,true->countDivs (a+1,b+1,c+1) (v+1)
-            |false,true,true->countDivs (a,b+1,c+1) (v+1)
-            |true,true,false->countDivs (a+1,b+1,c) (v+1)
-            |true,false,true->countDivs (a+1,b,c+1) (v+1)
             |_,_,_->countDivs (a,b,c) (v+1)
     countDivs (0,0,0) 1
 failwith "Not implemented"
 
 let monthDay d y =
-    let itsleap,range=match isLeap y with
-        |true-> true,366
-        |false->false,365
-    match (d<0),(d=366 && itsleap=false),(d>366) with
+    match (d<=0),(d=366 && (isLeap y)=false),(d>366) with
     |true,false,_|false,true,false|false,false,true-> failwith "An exception has been thrown"
     |_,_,_->
         let rec monthCheck v numofdays= match v=13 with
           |true->"December"
           |false->
             let mon,days=month v 
-            let febchecker = match v=2 && itsleap with
+            let febchecker = match v=2 && (isLeap y) with
                 |true->days+1
                 |false->days
             match numofdays<d with
@@ -130,7 +121,7 @@ let monthDay d y =
                 let mon,day=month (v-1)
                 mon
         monthCheck 1 0
-
+failwith "Not implemented"
 
 let sqrt n=
      let rec calculate guess i=
@@ -143,12 +134,13 @@ let sqrt n=
      |true->failwith "Can't take square root of negative"
      |_-> 
         calculate (n/2.0) 0
-         
+failwith "Not implemented"       
+
 let coord n =
     let (x1,y1)=n
     let dist (x2,y2)= sqrt ((x1-x2)**2.0 + (y1-y2)**2.0)
-    let within (x,y) width height = 
-        match (x1<=(x+width) && x1>=x) && (y1<=y && y1>=y-height) with
-        |true->true
-        |_->false
+    let within (x,y) width height =  match (x1<=(x+width) && x1>=x) && (y1<=y && y1>=y-height) with
+                                        |true->true
+                                        |_->false
     dist,within
+failwith "Not implemented"
